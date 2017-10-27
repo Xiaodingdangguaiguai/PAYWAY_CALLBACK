@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Payway Search</title>
+  <meta charset="UTF-8">
+</head>
+
+<body>
+
+<h1>Payway</h1>
+<p style="color:Tomato;">Input a customerID you want:</p>
+
+<!-- refresh button -->
+<button type="button" onclick="loadDoc()">Refresh</button>
+
+<!-- search button -->
+<button type="button" onclick="SearchDoc()">Search</button>
+
+
+<!-- the variable of input customer id for searching -->
+<input id="numb">
+
+<!-- display part for last 10 customer id and customer names -->
+<p id="demo"></p>
+<br>
+<!-- display the customer's details you wanna search -->
+<p id="display"></p>
+
+
+<script>
+function loadDoc() {
+  var xhttp;
+  xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function(){
+    if(this.readyState == 4 && this.status == 200){
+      document.getElementById("demo").innerHTML = this.responseText;
+    }
+  }
+  xhttp.open("GET", "http://127.0.0.1/payway_search/test.php", true);
+  xhttp.send();
+}
+</script>
+
+
+
+<script>
+function SearchDoc() {
+    var xhttp;
+    var ding = document.getElementById("numb").value;
+    //document.getElementById("display").innerHTML = "dingwen";
+    xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function(){
+        if(this.readyState == 4 && this.status == 200){
+            document.getElementById("display").innerHTML = this.responseText;
+        }
+    }
+    xhttp.open("GET", "http://127.0.0.1/payway_search/test_1.php?q="+ding, true);
+    xhttp.send();
+}
+</script>
+
+
+
+
+
+
+<!-- function for search just for test currently -->
+<script type="text/javascript">
+  function mySearch(){
+    var i, x, text;
+    var status = false;
+    x = document.getElementById("numb").value;
+    
+    //if (isNaN(x)) {
+        //    text = "Input not valid";
+      //  } else {
+        //    text = x;
+      //  }
+      //x in cid means the key value is x, like cid[x], not the content value itself.
+      for(i = 0; i < cid.length; i++){
+        if(x == cid[i]){
+          status = true;
+        }
+      }
+
+
+      if(status === true){
+        document.getElementById("display").innerHTML = x;
+      }else{
+        text = "Input not found";
+        document.getElementById("display").innerHTML = text;
+      }
+      //document.getElementById("display").innerHTML = cid;
+      
+  }
+</script>
+
+
+
+
+</body>
+</html>
